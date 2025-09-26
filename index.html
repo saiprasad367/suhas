@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golli’s Fast Food Center</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .nav-link {
+            color: #333;
+            font-weight: 500;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #ff5722;
+        }
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            height: 100%;
+        }
+        .hero .btn {
+            background-color: #ff5722;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .hero .btn:hover {
+            background-color: #e64a19;
+            transform: scale(1.05);
+        }
+        .tagline-section {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .tagline-section h3 {
+            font-size: 2rem;
+            color: #333;
+            margin: 0;
+        }
+        .discount-banner {
+            background-color: #ff5722;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            text-align: center;
+        }
+        .card-title {
+            font-size: 1.4rem;
+            color: #333;
+        }
+        .card-text {
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff5722;
+            margin-bottom: 10px;
+        }
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        .card .btn {
+            background-color: #ff5722;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+        .card .btn:hover {
+            background-color: #e64a19;
+        }
+        .about-section {
+            background-color: #f8f9fa;
+            padding: 60px 0;
+        }
+        .about-section p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 20px 0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .tagline-section h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Golli’s Fast Food Center</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#items">Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <video autoplay loop muted playsinline>
+            <source src="golli.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <a href="#items" class="btn btn-primary mb-5">Order Now</a>
+        </div>
+    </section>
+
+    <!-- Tagline Section (Static) -->
+    <section class="tagline-section">
+        <div class="container">
+            <h3>Taste Traveled from Nepal to Kandlakoya</h3>
+        </div>
+    </section>
+
+    <!-- Discount Banner -->
+    <section class="discount-banner">
+        <div class="container">
+            CMRCET Students Enjoy 20% Off on All Items! (Must present ID card)
+        </div>
+    </section>
+
+    <!-- Items Section -->
+    <section id="items" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Our Items</h2>
+            <div class="row g-4">
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="veg manchu.jpg" class="card-img-top" alt="Veg Manchuria">
+                        <div class="card-body">
+                            <h5 class="card-title">Veg Manchuria</h5>
+                            <p class="card-text">Crispy vegetable balls tossed in a tangy Indo-Chinese sauce.</p>
+                            <p class="price">₹120</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Veg Manchuria" data-price="120">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="chiken manchuria.jpg" class="card-img-top" alt="Chicken Manchuria">
+                        <div class="card-body">
+                            <h5 class="card-title">Chicken Manchuria</h5>
+                            <p class="card-text">Juicy chicken pieces in a spicy, flavorful sauce.</p>
+                            <p class="price">₹150</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Chicken Manchuria" data-price="150">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="veg nod.jpg" class="card-img-top" alt="Veg Noodles">
+                        <div class="card-body">
+                            <h5 class="card-title">Veg Noodles</h5>
+                            <p class="card-text">Stir-fried noodles loaded with fresh vegetables.</p>
+                            <p class="price">₹100</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Veg Noodles" data-price="100">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="veg nod.jpg" class="card-img-top" alt="Egg Noodles">
+                        <div class="card-body">
+                            <h5 class="card-title">Egg Noodles</h5>
+                            <p class="card-text">Noodles mixed with scrambled eggs and veggies for extra protein.</p>
+                            <p class="price">₹120</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Egg Noodles" data-price="120">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="veg nod.jpg" class="card-img-top" alt="Chicken Noodles">
+                        <div class="card-body">
+                            <h5 class="card-title">Chicken Noodles</h5>
+                            <p class="card-text">Tender chicken strips with noodles in a savory sauce.</p>
+                            <p class="price">₹140</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Chicken Noodles" data-price="140">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="chiken manchuria.jpg" class="card-img-top" alt="Spl. Golli Manchuria">
+                        <div class="card-body">
+                            <h5 class="card-title">Spl. Golli Manchuria</h5>
+                            <p class="card-text">Our signature dish: A unique twist on classic Manchuria.</p>
+                            <p class="price">₹160</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Spl. Golli Manchuria" data-price="160">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="veg rice.jpg" class="card-img-top" alt="Veg Fried Rice">
+                        <div class="card-body">
+                            <h5 class="card-title">Veg Fried Rice</h5>
+                            <p class="card-text">Flavorful rice stir-fried with fresh vegetables.</p>
+                            <p class="price">₹110</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Veg Fried Rice" data-price="110">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="chikn rice.jpg" class="card-img-top" alt="Chicken Fried Rice">
+                        <div class="card-body">
+                            <h5 class="card-title">Chicken Fried Rice</h5>
+                            <p class="card-text">Rice with tender chicken and veggies in savory sauce.</p>
+                            <p class="price">₹140</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Chicken Fried Rice" data-price="140">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="biryani.jpg" class="card-img-top" alt="Spl. Golli Dum Biryani">
+                        <div class="card-body">
+                            <h5 class="card-title">Spl. Golli Dum Biryani</h5>
+                            <p class="card-text">Aromatic layered rice with spices and tender meat.</p>
+                            <p class="price">₹200</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Spl. Golli Dum Biryani" data-price="200">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="card">
+                        <img src="thalli.jpg" class="card-img-top" alt="Spl. Golli Thalli">
+                        <div class="card-body">
+                            <h5 class="card-title">Spl. Golli Thalli</h5>
+                            <p class="card-text">Assorted platter with variety of dishes.</p>
+                            <p class="price">₹180</p>
+                            <div class="d-flex justify-content-center align-items-center mb-2">
+                                <input type="number" class="form-control quantity-input" value="1" min="1">
+                                <button class="btn btn-primary order-btn" data-item="Spl. Golli Thalli" data-price="180">Order Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <p>Golli’s Fast Food Center is a beloved brand bringing authentic Indo-Chinese flavors to your plate. Starting from our main branch in Nepal, we expanded to Kandlakoya, Hyderabad, to serve more food enthusiasts. Our passion for quick, delicious meals made with fresh ingredients has made us a go-to spot for fast food lovers. Join us in our journey of taste that travels across borders!</p>
+        </div>
+    </section>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalLabel">Order Payment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="itemDetails"></p>
+                    <img src="qr2.jpeg" class="img-fluid mb-3" alt="QR Code">
+                    <p>UPI ID: gollisuhas@ibl</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Copyright -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Golli’s Fast Food Center. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <!-- Custom JS for Modal -->
+    <script>
+        // Modal Handling
+        const orderButtons = document.querySelectorAll('.order-btn');
+        const modal = new bootstrap.Modal(document.getElementById('paymentModal'));
+        const itemDetails = document.getElementById('itemDetails');
+
+        orderButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const item = button.dataset.item;
+                const price = button.dataset.price;
+                const quantityInput = button.previousElementSibling;
+                const quantity = quantityInput.value;
+                const total = price * quantity;
+                itemDetails.textContent = `Item: ${item} | Quantity: ${quantity} | Total: ₹${total}`;
+                modal.show();
+            });
+        });
+    </script>
+</body>
+</html>
